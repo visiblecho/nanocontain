@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="./app/app.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>nanocontain</title>
+</head>
+<body>
+    <section id="value-display">
+        <label for "message">Message:</label><output id="message">
+            Left-click a cell to analyze and get infection levels.<br>
+            Right-click to contain potentially infected cells.</output>
+        <label for "infected">Infected:</label><output id="infected"></output>
+        <label for "contained">Contained:</label><output id="contained"></output>
+        <label for "analyzed">Analyzed:</label><output id="analyzed"></output>
+    </section>
+    <section id="board">
+        <!--
+        This is filled dynamically via JS, based on the board configuration.
+        -->
+    </section>
+    <section id="new-game">
+        <div class="button clickable" data-action-left="reset" data-virus-count="9" data-size-x="9" data-size-y="9">Reset 9x9</div>
+        <div class="button clickable" data-action-left="reset" data-virus-count="13" data-size-x="13" data-size-y="17">Reset 13x13</div>
+        <div class="button clickable" data-action-left="reset" data-virus-count="18" data-size-x="18" data-size-y="33">Reset 18x18</div>
+    </section>
+</body>
+</html>

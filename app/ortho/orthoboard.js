@@ -1,0 +1,126 @@
+/* orthoboard.js
+
+Defines board mechanics for an orthogonal board.
+Adjacency is vertical, horizontal and diagonal in 2 dimensions.
+
+*/
+
+import { Board, Cell } from "../base/board.js"
+
+export class OrthoBoard extends Board {
+    constructor(virusCount, columns, rows) {
+        console.debug('OrthoBoard.constructor');
+        super(); // Board.constructor() is empty but must be called.
+
+        // Static information. Will not change after this initialization.
+        this.configuration = {
+            virusCount: virusCount,
+            columns: columns,
+            rows: rows,
+        };
+
+        // Main board of cells as 2d array.
+        this.cells = [];
+        for (let col = 0; col < this.configuration.columns; col++) {
+            let arr = [];
+            for (let row = 0; row < this.configuration.rows; row++) {
+                arr.push(new Cell());
+            }
+            this.cells.push(arr);
+        }
+
+        // Distribute all viruses randomly.
+        let undistributedViruses = this.configuration.virusCount;
+        while (undistributedViruses > 0) {
+            const col = Math.floor(Math.random() * this.configuration.columns);
+            const row = Math.floor(Math.random() * this.configuration.columns);
+            if (this.cells[col][row].isInfected === false) {
+                this.cells[col][row].isInfected = true;
+                undistributedViruses--;
+            }
+        }
+
+        // Update each cell's risk level based on adjacent viruses.
+        for (let col = 0; col < this.configuration.columns; col++) {
+            for (let row = 0; row < this.configuration.rows; row++) {
+                const adjacenPositions = this.getAdjacentCellPositions({col: col, row: row});
+                const risk = adjacenPositions
+                    .map(pos => { return this.cells[pos.col][pos.row].isInfected ? 1 : 0 })
+                    .reduce((a, b) => { return a + b }, 0);
+                this.cells[col][row].riskLevel = risk; 
+            }
+        }
+    }
+
+    // Access cells by their position on the board.
+    // The methods are meant for use by other classes.
+    // Methods of OrthoBoard directly access the array for simplicity. 
+    getCell(pos) {return this.cells[pos.col][pos.row]};
+    setCell(pos, cell) {this.cells[pos.col][pos.row] = cell};
+
+    getStatus() {
+        // The board is complete if each cell is either analyzed or contained
+        // The board is won if all infected cells are contained. A board can be won without being complete.
+        return {
+            isComplete: this.cells.every(row =>
+                row.every(cell => cell.isAnalyzed || cell.isContained)
+            ),
+            isWon: this.cells.every(row =>
+                row.every(cell => cell.isInfected ? cell.isContained : true)
+            ),
+        };
+    }
+
+    // For any given position, returns an array with adjacent cell positions.
+    // Positions on the board's edge have less than eight adjacent cells.
+    // This would be modified for a hex grid.
+    getAdjacentCellPositions(pos) {
+        const minCol = 0;
+        const minRow = 0;
+        const maxCol = this.configuration.columns - 1;
+        const maxRow = this.configuration.rows - 1;
+
+        const up =    pos.row <= minRow ? undefined : pos.row-1;
+        const right = pos.col >= maxCol ? undefined : pos.col+1;
+        const down  = pos.row >= maxRow ? undefined : pos.row+1;
+        const left  = pos.col <= minCol ? undefined : pos.col-1;
+        return [
+            {col: pos.col, row: up},
+            {col: right, row: up},
+            {col: right, row: pos.row},
+            {col: right, row: down},
+            {col: pos.col, row: down},
+            {col: left, row: down},
+            {col: left, row: pos.row},
+            {col: left, row: up},
+        ].filter(pos => {return pos.col !== undefined && pos.row !== undefined}) // remove all undefined positions
+    }
+
+    // Returns an encoded state, e.g. for rendering on the UI.
+    // - copy of the board's status variables.
+    // - for the board's cells:
+    //   -- a number if the cell is analyzed, indicating its risk level
+    //   -- NaN if the cell is contained
+    //   -- undefined if the cell has not been analyzed
+    getUserView() {
+        console.debug('OrthoBoard.getBoardImage')
+        const status = this.getStatus();
+        const cells = this.cells.map(row => {
+            return row.map(cell => {
+                if (cell.isAnalyzed) return cell.riskLevel;
+                if (cell.isContained) return NaN;
+                return undefined;
+            });
+        })
+        const view = {
+            type: this.constructor.name, // To be checked by OrthoView
+            columns: this.columns,
+            rows: this.rows,
+            isComplete: status.isComplete,
+            isWon: status.isWon,
+            cells: cells,
+        };
+        console.debug(view);
+        return view;
+    }
+}

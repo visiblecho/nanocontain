@@ -1,0 +1,101 @@
+:root {
+    /* Default color theme */
+    --color-one: #00E0E0;
+    --color-two: #C3FF00;
+    --color-three: #FF2F5A;
+    --color-four: #121417;
+    --color-five: #E8E8E8;
+}
+
+.dark {
+    /* Dark theme overrides. Add this class to <body> */
+    --color-one: #00E0E0;
+    --color-two: #C3FF00;
+    --color-three: #FF2F5A;
+    --color-four: #121417;
+    --color-five: #E8E8E8;
+}
+
+body {
+    box-sizing: border-box;
+    background-color: var(--color-four);
+    color: var(--color-five);
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+label {
+  color: var(--color-one);
+}
+
+#board {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--color-four);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+#board, .cell, .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-one);
+  margin: 0.25em;
+  padding: 0.25em;
+}
+
+.cell {
+  width: 2em;
+  height: 2em;
+}
+
+.analyzed {
+  border: none;
+}
+
+#new-game {
+  display: flex;
+  flex-direction: row;
+}
+
+#value-display {
+  display: flex;
+  flex-direction: column;
+}
+
+.pointerdown {
+  background-color: var(--color-one);
+}
+
+/* .unknown {} */ 
+
+.virus {
+  background-color: var(--color-three);
+}
+
+.analyzed {
+  color: var(--color-three)
+}
+
+/* From Google Fonts:
+
+.exo-2-light {
+  font-family: "Exo 2", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.audiowide-regular {
+  font-family: "Audiowide", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+*/
