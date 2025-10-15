@@ -13,13 +13,16 @@
     <title>nanocontain</title>
 </head>
 <body>
+    <header>nanocontain</header>
     <section id="value-display">
         <label for "message">Message:</label><output id="message">
             Left-click a cell to analyze and get infection levels.<br>
-            Right-click to contain potentially infected cells.</output>
-        <label for "infected">Infected:</label><output id="infected"></output>
-        <label for "contained">Contained:</label><output id="contained"></output>
-        <label for "analyzed">Analyzed:</label><output id="analyzed"></output>
+            Right-click to contain potentially infected cells.<br>
+            Contain all infected cells to win.<br>
+            Analyze an infected cell: The virus will spread and you loose.</output>
+        <label for "infected">Infected:</label><output id="infected">9</output>
+        <label for "contained">Contained:</label><output id="contained">0 (0%)</output>
+        <label for "analyzed">Analyzed:</label><output id="analyzed">0 (0%)</output>
     </section>
     <section id="board">
         <!--

@@ -10,12 +10,14 @@ export class OrthoView extends View {
     constructor(root, columns, rows) {
         super(root);
 
+        /* TODO: Move this to CSS. Use :hover instead
         this.root.addEventListener('pointerdown', event => {
             if (event.target.classList.contains('clickable')) event.target.classList.add('pointerdown')
         })
         this.root.addEventListener('pointerup', event => {
             if (event.target.classList.contains('clickable')) event.target.classList.remove('pointerdown')
         })
+        */
 
         this.configuration = {
             columns: columns,
