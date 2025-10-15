@@ -118,17 +118,13 @@ button {
 
 /* Cell states ----------------------------------------- */
 
-.unknown {
-  /* not needed. Moved to the .cell class */
-}
-
 .unknown:hover {
   /* use a variable for animation speed to modulate it */
   animation: pulse-background .75s infinite;
 }
 
 .contained {
-  background-color: var(--color-two);
+  background-color: var(--color-one);
 }
 
 .analyzed {

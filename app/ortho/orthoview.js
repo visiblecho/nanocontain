@@ -63,8 +63,7 @@ export class OrthoView extends View {
                 const cellElement = document.querySelector(`[data-column="${colIdx}"][data-row="${rowIdx}"]`);
                 
                 // Flush the class list.
-                cellElement.classList.remove('contained', 'analyzed', 'infected', 'risk');
-                cellElement.classList.add('unknown');
+                cellElement.classList.remove('contained', 'analyzed', 'infected', 'risk', 'unknown');
                 
                 // Add classes dpending on cell state
                 if (cell !== 'unknown') {
@@ -82,7 +81,7 @@ export class OrthoView extends View {
                         }
                         analyzed++;
                     }
-                }
+                } else cellElement.classList.add('unknown')
                 cellCount++;
             })
         });
