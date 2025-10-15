@@ -34,10 +34,21 @@ export class OrthoGame extends Model {
     analyze(data) {
         const pos = {col: data.column, row: data.row};
         const cell = this.board.getCell(pos);
-        cell.isAnalyzed = true;
-        this.board.setCell(pos, cell);
+        
+        // Only if the cell is not analyzed yet (vital to end the recursion)
+        if (!cell.isAnalyzed) {
+            // Update the cell
+            cell.isAnalyzed = true;
+            this.board.setCell(pos, cell);
 
-        /* something with recursion */
+            // Flood fill
+            if (cell.riskLevel === 0) {
+                const adjacentPositions = this.board.getAdjacentCellPositions(pos)
+                adjacentPositions.forEach(cell => {
+                    this.analyze({column: cell.col, row: cell.row})
+                })
+            }
+        }
 
         this.updateState(this.board.getUserView())
         this.notifyObservers();

@@ -75,23 +75,26 @@ export class OrthoBoard extends Board {
     // Positions on the board's edge have less than eight adjacent cells.
     // This would be modified for a hex grid.
     getAdjacentCellPositions(pos) {
+        const col = Number(pos.col);
+        const row = Number(pos.row);
         const minCol = 0;
         const minRow = 0;
         const maxCol = this.configuration.columns - 1;
         const maxRow = this.configuration.rows - 1;
 
-        const up =    pos.row <= minRow ? undefined : pos.row-1;
-        const right = pos.col >= maxCol ? undefined : pos.col+1;
-        const down  = pos.row >= maxRow ? undefined : pos.row+1;
-        const left  = pos.col <= minCol ? undefined : pos.col-1;
+        const up =    row <= minRow ? undefined : row-1;
+        const right = col >= maxCol ? undefined : col+1;
+        const down  = row >= maxRow ? undefined : row+1;
+        const left  = col <= minCol ? undefined : col-1;
+
         return [
-            {col: pos.col, row: up},
+            {col: col, row: up},
             {col: right, row: up},
-            {col: right, row: pos.row},
+            {col: right, row: row},
             {col: right, row: down},
-            {col: pos.col, row: down},
+            {col: col, row: down},
             {col: left, row: down},
-            {col: left, row: pos.row},
+            {col: left, row: row},
             {col: left, row: up},
         ].filter(pos => {return pos.col !== undefined && pos.row !== undefined}) // remove all undefined positions
     }
