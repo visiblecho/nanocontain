@@ -96,31 +96,23 @@ export class OrthoBoard extends Board {
         ].filter(pos => {return pos.col !== undefined && pos.row !== undefined}) // remove all undefined positions
     }
 
-    // Returns an encoded state, e.g. for rendering on the UI.
-    // - copy of the board's status variables.
-    // - for the board's cells:
-    //   -- a number if the cell is analyzed, indicating its risk level
-    //   -- NaN if the cell is contained
-    //   -- undefined if the cell has not been analyzed
     getUserView() {
-        console.debug('OrthoBoard.getBoardImage')
         const status = this.getStatus();
-        const cells = this.cells.map(row => {
-            return row.map(cell => {
+        const cells = this.cells.map((col, colIdx) => {
+            return col.map((cell, rowIdx) => {
                 if (cell.isAnalyzed) return cell.riskLevel;
-                if (cell.isContained) return NaN;
-                return undefined;
+                if (cell.isContained) return 'contained';
+                if (cell.isInfected) return 'infected';
+                return 'unknown';
             });
         })
         const view = {
-            type: this.constructor.name, // To be checked by OrthoView
-            columns: this.columns,
-            rows: this.rows,
+            columns: this.configuration.columns,
+            rows: this.configuration.rows,
             isComplete: status.isComplete,
             isWon: status.isWon,
             cells: cells,
         };
-        console.debug(view);
         return view;
     }
 }

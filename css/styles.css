@@ -7,6 +7,7 @@
     --color-three: red;
     --color-four: black;
     --color-five: white;
+    --color-six: #0E3D3F;
 }
 
 .soft-colors {
@@ -17,6 +18,7 @@
     --color-three: #FF2F5A;
     --color-four: #121417;
     --color-five: #E8E8E8;
+    --color-six: #111E21;
 }
 
 /* Static HTML tags ------------------------------------ */
@@ -100,6 +102,12 @@ button {
   aspect-ratio: 1;
   align-items: center;
   justify-content: center;
+
+  border: 1px solid var(--color-one);
+  border-radius: 3px;
+  margin: 0.25em;
+  padding: 0.25em;
+  background-color: var(--color-four);
 }
 
 @keyframes pulse-background {
@@ -111,11 +119,7 @@ button {
 /* Cell states ----------------------------------------- */
 
 .unknown {
-  border: 1px solid var(--color-one);
-  border-radius: 3px;
-  margin: 0.25em;
-  padding: 0.25em;
-  background-color: var(--color-four);
+  /* not needed. Moved to the .cell class */
 }
 
 .unknown:hover {
@@ -123,16 +127,24 @@ button {
   animation: pulse-background .75s infinite;
 }
 
+.contained {
+  background-color: var(--color-two);
+}
+
 .analyzed {
-  /* found this, see if it works */
-  background-color: color(var(--color-one) / 0.1);
+  background-color: var(--color-six);
   border: none;
 }
 
-.risk {
+.risk-low {
+  color: var(--color-one);
+}
+
+.risk-high {
   color: var(--color-three);
 }
 
 .infected {
   background-color: var(--color-three);
+  border: none;
 }

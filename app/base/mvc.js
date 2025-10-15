@@ -18,8 +18,7 @@ export class Model {
     }
 
     // Changes the game's state. Use this function to establish an undo/redo stack.
-    // TODO: Validate that this syntax works
-    updateState(newState) { this.states.push({...this.states.at[-1], ...newState}); }
+    updateState(newState) { this.states.push(newState); }
 
     // Called when the user triggers an action
     performAction(action, data) { this.actions[action](data); }
@@ -28,7 +27,7 @@ export class Model {
     subscribeToNotifications(observer) { this.observers.push(observer); }
 
     // Notifies all subscribed observers of the latest game state (e.g., after modification)
-    notifyObservers() { this.observers.forEach(observer => observer(this.states.at[-1])); }
+    notifyObservers() { this.observers.forEach(observer => observer(this.states.at(-1))); }
 };
 
 export class View {
@@ -47,7 +46,6 @@ export class View {
     // Example: <button data-action-left="start">Start</button>
     // Clicking left will call Model.actions['start'](dataset)
     subscribeToAction(handler) {
-        console.debug("View.subscribeToClickAction");
         this.root.addEventListener('pointerup', event => {
             const actionLeft = event.target.dataset.actionLeft;
             const actionRight = event.target.dataset.actionRight; 

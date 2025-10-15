@@ -32,13 +32,28 @@ export class OrthoGame extends Model {
     }
 
     analyze(data) {
-        console.debug("OrthoGame.analyze", data);
+        const pos = {col: data.column, row: data.row};
+        const cell = this.board.getCell(pos);
+        cell.isAnalyzed = true;
+        this.board.setCell(pos, cell);
+
+        /* something with recursion */
+
+        this.updateState(this.board.getUserView())
+        this.notifyObservers();
     }
 
     contain(data) {
-        console.debug("OrthoGame.contain", data);
+        const pos = {col: data.column, row: data.row};
+        const cell = this.board.getCell(pos);
+        if (!cell.isAnalyzed) cell.isContained = !cell.isContained;
+        this.board.setCell(pos, cell);
+
+        this.updateState(this.board.getUserView())
+        this.notifyObservers();
     }
 
+    // TODO: Remove. This is not part of the game, but manages the game */
     reset(data) {
         console.debug('OrthoGame.reset', data);
         this.board = new OrthoBoard(data.virusCount, data.sizeX, data.sizeY);
