@@ -12,27 +12,26 @@
     <link rel="stylesheet" href="./css/styles.css">
     <title>nanocontain</title>
 </head>
-<body>
+<body class="soft-colors">
     <header>nanocontain</header>
-    <section id="value-display">
-        <label for "message">Message:</label><output id="message">
-            Left-click a cell to analyze and get infection levels.<br>
-            Right-click to contain potentially infected cells.<br>
-            Contain all infected cells to win.<br>
-            Analyze an infected cell: The virus will spread and you loose.</output>
-        <label for "infected">Infected:</label><output id="infected">9</output>
-        <label for "contained">Contained:</label><output id="contained">0 (0%)</output>
-        <label for "analyzed">Analyzed:</label><output id="analyzed">0 (0%)</output>
-    </section>
-    <section id="board">
-        <!--
-        This is filled dynamically via JS, based on the board configuration.
-        -->
+    <section id="game">
+        <section id="value-display">
+            <div class="pair"><label for "message">Message:</label><output id="message">
+                Contain all infected cells without analyzing one!</div>
+            <div class="pair"><label for "infected">Infected:</label><output id="infected">9</output></div>
+            <div class="pair"><label for "contained">Contained:</label><output id="contained">0 (0%)</output></div>
+            <div class="pair"><label for "analyzed">Analyzed:</label><output id="analyzed">0 (0%)</output></div>
+        </section>
+        <section id="board">
+            <!--
+            This is filled dynamically via JS, based on the board configuration.
+            -->
+        </section>
     </section>
     <section id="new-game">
-        <div class="button clickable" data-action-left="reset" data-virus-count="9" data-size-x="9" data-size-y="9">Reset 9x9</div>
-        <div class="button clickable" data-action-left="reset" data-virus-count="13" data-size-x="13" data-size-y="17">Reset 13x13</div>
-        <div class="button clickable" data-action-left="reset" data-virus-count="18" data-size-x="18" data-size-y="33">Reset 18x18</div>
+        <button data-action-left="reset" data-virus-count="9" data-size-x="9" data-size-y="9">Reset 9x9</button>
+        <button data-action-left="reset" data-virus-count="13" data-size-x="13" data-size-y="17">Reset 13x13</button>
+        <button data-action-left="reset" data-virus-count="18" data-size-x="18" data-size-y="33">Reset 18x18</button>
     </section>
 </body>
 </html>

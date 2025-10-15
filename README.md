@@ -8,18 +8,18 @@ Pick a cell to analyze it. If it is close to an infected cell, you get an alert.
 
 ## TODOs for MVP (7.5h of remaining 15h)
 
-- Restructure the CSS. (.5h)
-    - Classes for interaction elements: triggers ("Reset 9x9"), cells, displays with labels.
-    - Classes for cell states: unknown, open w/o risk, open w/ risk, contained, infected.
-- Complete render(). (2h)
-- Restructure HTML and JS so that game-external triggers (like reset) are not part of MVC. (.5h)
+- ~~Restructure the CSS. (.5h)~~
+    - ~~Classes for interaction elements: triggers ("Reset 9x9"), cells, displays with labels.~~
+    - ~~Classes for cell states: unknown, open w/o risk, open w/ risk, contained, infected.~~
+- Complete render(). (1h)
+- ~~Restructure HTML and JS so that game-external triggers (like reset) are not part of MVC. (.5h)~~
 - Implement the OrthoGame.analyze() method. (2h)
     - Basic update of the cell status.
     - This must recursively analyze adjacent tells iff the they are not adjacent to an infected cell
 - Implement the Orthogame.contain() method (.5h)
 - Implement the remaining notify() pieces (.5h)
 - Remove the undo/redo stack stub and ensure the system is working with a single state. (.5h)
-- Add a timer that resets with every analyze/contain action but ticks down and analyzes an arbitrary cell ... (1h)
+- Add a timer that resets with every analyze/contain action but ticks down and analyzes an arbitrary cell ... (2h)
 
 ## Known Issues (Deferred beyond MVP)
 

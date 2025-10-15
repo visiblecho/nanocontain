@@ -40,7 +40,7 @@ export class OrthoView extends View {
             for (let row = 0; row < this.configuration.rows; row++) {
                 const cell = document.createElement('div');
                 // cell.textContent = `(${col}|${row})`
-                cell.classList.add('cell', 'unknown', 'clickable')
+                cell.classList.add('cell', 'unknown')
                 cell.dataset.column = col;
                 cell.dataset.row = row;
                 cell.dataset.actionLeft = 'analyze';

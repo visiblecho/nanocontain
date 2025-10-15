@@ -1,5 +1,17 @@
+/* Color Themes ---------------------------------------- */
+
 :root {
     /* Default color theme */
+    --color-one: cyan;
+    --color-two: yellow;
+    --color-three: red;
+    --color-four: black;
+    --color-five: white;
+}
+
+.soft-colors {
+    /* Theme override. Add this class to <body> */
+    /* TODO: Consider adding more themes */
     --color-one: #00E0E0;
     --color-two: #C3FF00;
     --color-three: #FF2F5A;
@@ -7,116 +19,120 @@
     --color-five: #E8E8E8;
 }
 
-.dark {
-    /* Dark theme overrides. Add this class to <body> */
-    --color-one: #00E0E0;
-    --color-two: #C3FF00;
-    --color-three: #FF2F5A;
-    --color-four: #121417;
-    --color-five: #E8E8E8;
+/* Static HTML tags ------------------------------------ */
+
+body {
+    background-color: var(--color-four);
+    color: var(--color-five);
+    font-family: "Exo 2", sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
 }
+
+/* --- */
 
 header {
   font-family: "Audiowide", sans-serif;
   font-weight: 400;
-  font-style: normal;
-  font-size: 3rem;
+  font-size: 3em;
   color: var(--color-two)
 }
 
-body {
-    box-sizing: border-box;
-    background-color: var(--color-four);
-    color: var(--color-five);
-    font-family: "Exo 2", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-}
-
-label {
-  color: var(--color-one);
-}
-
-#board {
-  display: flex;
-  flex-direction: row;
-  background-color: var(--color-four);
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-}
-
-#board, .cell, .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-one);
-  border-radius: 3px;
-  margin: 0.25em;
-  padding: 0.25em;
-  background-color: var(--color-four);
-  /* transition: background-color 2s ease; does not work */
-}
-
-@keyframes pulse-background {
-  0%   { background-color: var(--color-four); }
-  33%  { background-color: var(--color-two); }
-  100% { background-color: var(--color-four); }
-}
-
-.cell {
-  width: 2em;
-  height: 2em;
-}
-
-.cell:hover {
-  animation: pulse-background 0.5s infinite;
-}
-
-.analyzed {
-  border: none;
-}
-
-#new-game {
-  display: flex;
-  flex-direction: row;
-}
+/* --- */
 
 #value-display {
   display: flex;
   flex-direction: column;
 }
 
-.pointerdown {
-  background-color: var(--color-two);
+label {
+  color: var(--color-one);
 }
 
-/* .unknown {} */ 
+output {
+  color: var(--color-five);
+}
 
-.virus {
-  background-color: var(--color-three);
+.pair {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: .1em
+}
+
+/* --- */
+
+#new-game {
+  display: flex;
+  flex-direction: row;
+}
+
+button {
+  background-color: var(--color-four);
+  color: var(--color-two);
+  margin: 1em 1em 0 0; /* improve layout later with flex */
+  padding: 0.25em;
+  /* Understand why <button> does not get font from <body> */
+  font-family: "Exo 2", sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+/* Basic board ----------------------------------------- */
+
+#board {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-four);
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.cell {
+  display: flex;
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes pulse-background {
+  0%   { background-color: var(--color-four); }
+  5%   { background-color: var(--color-two); }
+  100% { background-color: var(--color-four); }
+}
+
+/* Cell states ----------------------------------------- */
+
+.unknown {
+  border: 1px solid var(--color-one);
+  border-radius: 3px;
+  margin: 0.25em;
+  padding: 0.25em;
+  background-color: var(--color-four);
+}
+
+.unknown:hover {
+  /* use a variable for animation speed to modulate it */
+  animation: pulse-background .75s infinite;
 }
 
 .analyzed {
-  color: var(--color-three)
+  /* found this, see if it works */
+  background-color: color(var(--color-one) / 0.1);
+  border: none;
 }
 
-/* From Google Fonts:
-
-.exo-2-light {
-  font-family: "Exo 2", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
+.risk {
+  color: var(--color-three);
 }
 
-.audiowide-regular {
-  font-family: "Audiowide", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+.infected {
+  background-color: var(--color-three);
 }
-
-*/
