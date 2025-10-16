@@ -16,8 +16,6 @@
     <header>nanocontain</header>
     <section id="game">
         <section id="value-display">
-            <div class="pair"><label for "message">Message:</label><output id="message">
-                Contain all infected cells without analyzing one!</div>
             <div class="pair"><label for "infected">Infected:</label><output id="infected">9</output></div>
             <div class="pair"><label for "contained">Contained:</label><output id="contained">0 (0%)</output></div>
             <div class="pair"><label for "analyzed">Analyzed:</label><output id="analyzed">0 (0%)</output></div>
@@ -29,9 +27,8 @@
         </section>
     </section>
     <section id="new-game">
-        <button data-action-left="reset" data-virus-count="9" data-size-x="9" data-size-y="9">Reset 9x9</button>
-        <button data-action-left="reset" data-virus-count="13" data-size-x="13" data-size-y="17">Reset 13x13</button>
-        <button data-action-left="reset" data-virus-count="18" data-size-x="18" data-size-y="33">Reset 18x18</button>
+        <button data-virus-count="9" data-columns="9" data-rows="9">Reset 9x9</button>
+        <button data-virus-count="13" data-columns="13" data-rows="17">Reset 13x13</button>
     </section>
 </body>
 </html>

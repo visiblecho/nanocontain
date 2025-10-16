@@ -1,10 +1,19 @@
 # nanocontain
 
-The virus is spreading! We need a vaccine! But ontageous virus is unknown.
+The virus is spreading! We need a vaccine!
+But the contageous virus is unknown.
 
-You were able to isolate a few cells: Some of them contain the virus. But if you analyze an infected cell, the virus spreads immediately.
+You were able to isolate a few cells: Some of them contain the virus.
 
-Pick a cell to analyze it. If it is close to an infected cell, you get an alert. Continue your analysis until you have found and contained all infected cells without analyzing one directly.
+Left-click a cell to analyze it.
+Analysis reveals the cell's risk level: the number of infected adjacent cells.
+
+If the analyzed cell is infected, however: The virus spreads and you loose!
+
+Prevent analyzing potentially infected cells by containing them.
+Right-click a cell to toggle its containment.
+
+Continue your analysis until you have contained all infected cells without analyzing one directly.
 
 ## TODOs for MVP
 
@@ -18,20 +27,18 @@ Pick a cell to analyze it. If it is close to an infected cell, you get an alert.
     - ~~This must recursively analyze adjacent tells iff the they are not adjacent to an infected cell~~
 - ~~Implement the Orthogame.contain() method (.5h)~~
 - ~~Implement the remaining notify() pieces (.5h)~~
-- Fix: Handle the render() / CSS issue that displays all infected cells after the first user interaction
-- Improve: Limit the number of contained cells to the number of infected cells 
-- Improve: Remove the undo/redo stack stub and ensure the system is working with a single state. (.5h)
+- ~~Improve: Limit the number of contained cells to the number of infected cells~~
 - Add: Visually handle the win/loose situation (1h)
-- Fix: Redo the reset functionality (.5h)
-- Add: Add a timer that resets with every analyze/contain action but ticks down and analyzes an arbitrary cell ... (2h)
+- Fix: Handle the render() / CSS issue that displays all infected cells after the first user interaction
+- Fix: The reset functionality is broken (.5h)
 
 ## Known Issues (Deferred beyond MVP)
 
-- Improve: MVC layer is over-engineered. It does not need the Model.actions[] indirection: There are only analyze() and contain(). Simplify
 - Improve: Refine the CSS with animations, esp. the flood fill has potential
+- Add: Add a timer that resets with every analyze/contain action but ticks down and analyzes an arbitrary cell ... (2h)
 
 ## Extensions (Deferred beyond Known Issues)
 
-- ~~Won't do: Implement the undo/redo stack.~~
+- Add: Lives to undo analyzing a virus cell
 - Add: hexagonal 2d grid (requires canvas).
 - Add: orthogonal 3d grid (requires canvas).

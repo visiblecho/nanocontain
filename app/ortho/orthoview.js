@@ -10,27 +10,20 @@ export class OrthoView extends View {
     constructor(root, columns, rows) {
         super(root);
 
-        /* TODO: Move this to CSS. Use :hover instead
-        this.root.addEventListener('pointerdown', event => {
-            if (event.target.classList.contains('clickable')) event.target.classList.add('pointerdown')
-        })
-        this.root.addEventListener('pointerup', event => {
-            if (event.target.classList.contains('clickable')) event.target.classList.remove('pointerdown')
-        })
-        */
-
         this.configuration = {
             columns: columns,
             rows: rows,
         };
 
         this.ui = {
-            message: document.getElementById('message'),
             infected: document.getElementById('infected'),
             contained: document.getElementById('contained'),
             analyzed: document.getElementById('analyzed'),
             board: document.getElementById('board'),
         }
+
+        // Clean the board
+        this.ui.board.innerHTML = '';
 
         // Set up the board strcuture with <div>
         for (let col = 0; col < this.configuration.columns; col++) {
@@ -88,6 +81,5 @@ export class OrthoView extends View {
 
         this.ui.contained.textContent = `${contained} (${Math.floor(100* contained / infected)}%)`;
         this.ui.analyzed.textContent = `${analyzed} (${Math.floor(100 * analyzed / cellCount)}%)`;
-
     }
 };

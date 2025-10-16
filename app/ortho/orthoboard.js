@@ -9,7 +9,6 @@ import { Board, Cell } from "../base/board.js"
 
 export class OrthoBoard extends Board {
     constructor(virusCount, columns, rows) {
-        console.debug('OrthoBoard.constructor');
         super(); // Board.constructor() is empty but must be called.
 
         // Static information. Will not change after this initialization.

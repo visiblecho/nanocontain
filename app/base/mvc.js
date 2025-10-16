@@ -11,7 +11,6 @@ No functionality specific to nanocontain is implemented here.
 
 export class Model {
     constructor() {
-        console.debug('Model.constructor');
         this.observers = [];
         this.actions = {};
         this.states = [];
@@ -34,7 +33,7 @@ export class View {
     constructor(root) {
         this.root = root;
 
-        // Right-click flags a cell as contageous. Prevent the contex menu to show.
+        // Prevent the browser's context menu as the board needs to handle right-click
         this.root.addEventListener('contextmenu', event => event.preventDefault())
     }
 
@@ -42,7 +41,7 @@ export class View {
     render(state) { throw new Error('Method must be overriden') }
 
     // Adds an observer to click events on the UI
-    // ! The action type must be encoded in the event target as data-action-left or -right property
+    // The action type must be encoded in the event target as data-action-left or -right property
     // Example: <button data-action-left="start">Start</button>
     // Clicking left will call Model.actions['start'](dataset)
     subscribeToAction(handler) {
@@ -57,7 +56,6 @@ export class View {
 
 export class Controller {
     constructor(model, view) {
-        console.debug('Controller.constructor')
         this.model = model;
         this.view = view;
 
