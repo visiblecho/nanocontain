@@ -10,7 +10,7 @@ import { OrthoGame } from "./ortho/orthogame.js"
 import { OrthoView } from "./ortho/orthoview.js";
 
 let controller = new Controller(
-    new OrthoGame(9, 9, 9),
+    new OrthoGame(1, 9, 9),
     // TODO: Change this from body to game. But something didn't work then; debug.
     new OrthoView(document.querySelector("body"), 9, 9)
 );

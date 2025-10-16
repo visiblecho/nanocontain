@@ -15,7 +15,7 @@
 </head>
 <body class="soft-colors">
     <header>nanocontain</header>
-    <section id="game">
+    <section id="game-container">
         <section id="value-display">
             <div class="pair"><label for "infected">Infected:</label><output id="infected">9</output></div>
             <div class="pair"><label for "contained">Contained:</label><output id="contained">0 (0%)</output></div>
@@ -26,10 +26,26 @@
             This is filled dynamically via JS, based on the board configuration.
             -->
         </section>
-    </section>
-    <section id="new-game">
-        <button data-virus-count="9" data-columns="9" data-rows="9">Reset 9x9</button>
-        <button data-virus-count="13" data-columns="13" data-rows="17">Reset 13x13</button>
+        <div id="overlay" class="hidden">
+            <section id="overlay-content">
+            <h1 id="message"></h1>
+            <label for "new-game">Start a new game</label>
+            <section id="new-game">
+                <button data-virus-count="9" data-columns="9" data-rows="9">Small & easy</button>
+                <button data-virus-count="19" data-columns="13" data-rows="13">Large & easy</button>
+                <button data-virus-count="19" data-columns="9" data-rows="9">Small & hard</button>
+                <button data-virus-count="40" data-columns="13" data-rows="13">Large & hard</button>
+            </section>
+            <article id="how-to-play">
+                <h3>How to play</h3>
+                <p>The virus is spreading! Find and contain all infected cells.</p>
+                <p><strong>Left-click</strong> a cell to analyze it. The number shows how many infected cells are next to it.</p>
+                <p>If you analyze an infected cell, the virus spreads and you lose!</p>
+                <p><strong>Right-click</strong> a cell to mark it as contained.</p>
+                <p>Contain all infected cells without analyzing one to win.</p>
+            </article>
+            </section>
+        </div>
     </section>
 </body>
 </html>

@@ -63,11 +63,14 @@ export class OrthoBoard extends Board {
     getStatus() {
         // The board is complete if each cell is either analyzed or contained
         // The board is won if all infected cells are contained. A board can be won without being complete.
+        // The board is switched inactive if it is won and active.
+        const isWon = this.cells.flat().every(cell => cell.isInfected ? cell.isContained : true);
+        this.isActive = !(isWon && this.isActive);
         return {
             analyzedCells: this.cells.flat().filter(cell => cell.isAnalyzed).length,
             containedCells: this.cells.flat().filter(cell => cell.isContained).length,
             isComplete: this.cells.flat().every(cell => cell.isAnalyzed || cell.isContained),
-            isWon: this.cells.flat().every(cell => cell.isInfected ? cell.isContained : true),
+            isWon: isWon,
             isActive: this.isActive,
         };
     }
@@ -118,7 +121,7 @@ export class OrthoBoard extends Board {
             containedCells: status.containedCells,
             isComplete: status.isComplete,
             isWon: status.isWon,
-            isActive: this.isActive,
+            isActive: status.isActive,
             cells: cells,
         };
         return view;

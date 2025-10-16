@@ -64,6 +64,45 @@ output {
 
 /* --- */
 
+#game-container {
+  position: relative;
+}
+
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(2px);
+
+  z-index: 10;
+  transition: opacity .3s ease;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#how-to-play {
+  text-align: center;
+}
+
+/* --- */
+
 #new-game {
   display: flex;
   flex-direction: row;

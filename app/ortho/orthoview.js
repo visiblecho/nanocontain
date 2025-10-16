@@ -20,10 +20,15 @@ export class OrthoView extends View {
             contained: document.getElementById('contained'),
             analyzed: document.getElementById('analyzed'),
             board: document.getElementById('board'),
+            overlay: document.getElementById('overlay'),
+            message: document.getElementById('message'),
         }
 
         // Clean the board
         this.ui.board.innerHTML = '';
+
+        // Hide overlay
+        this.hideOverlay()
 
         // Set up the board strcuture with <div>
         for (let col = 0; col < this.configuration.columns; col++) {
@@ -42,6 +47,16 @@ export class OrthoView extends View {
                 column.appendChild(cell);
             }
         }
+    }
+
+    // Utility functions to show and hide the overlay.
+    showOverlay(message) {
+        this.ui.message.textContent = message;
+        this.ui.overlay.classList.remove('hidden');
+    }
+    
+    hideOverlay() {
+        this.ui.overlay.classList.add('hidden');
     }
 
     // Renders the given state to the UI
@@ -72,5 +87,10 @@ export class OrthoView extends View {
             `${state.containedCells} (${Math.floor(100* state.containedCells / state.virusCount)}%)`;
         this.ui.analyzed.textContent =
             `${state.analyzedCells} (${Math.floor(100 * state.analyzedCells / (state.columns * state.rows))}%)`;
+
+        console.log(state)
+        if (state.isActive === false) {
+            this.showOverlay(state.isWon ? 'You win!' : 'You lose!')
+        } else this.hideOverlay();
     }
 };
