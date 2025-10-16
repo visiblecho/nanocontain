@@ -34,6 +34,7 @@ export class OrthoView extends View {
                 const cell = document.createElement('div');
                 cell.setAttribute('id', `${col},${row}`);
                 cell.classList.add('cell', 'unknown')
+                cell.textContent = '';
                 cell.dataset.column = col;
                 cell.dataset.row = row;
                 cell.dataset.actionLeft = 'analyze';
@@ -44,42 +45,32 @@ export class OrthoView extends View {
     }
 
     // Renders the given state to the UI
-    render(state) {
-        // Counters for the display
-        let infected = 9; // ! update
-        let contained = 0;
-        let analyzed = 0;
-        let cellCount = 0;
-        
+    render(state) {        
         state.cells.forEach((col, colIdx) => {
             col.forEach((cell, rowIdx) => {
                 const cellElement = document.querySelector(`[data-column="${colIdx}"][data-row="${rowIdx}"]`);
                 
-                // Flush the class list.
-                cellElement.classList.remove('contained', 'analyzed', 'infected', 'risk', 'unknown');
-                
-                // Add classes dpending on cell state
+                // Set all classes to "cell unknown" (and reset all other classes).
+                cellElement.className = 'cell unknown';
+
+                // Add other visual classes dependning on cell state
                 if (cell !== 'unknown') {
-                    if (cell === 'contained') {
-                        cellElement.classList.add('contained');
-                        contained++;
-                    } else if (cell === 'infected') {
-                        cellElement.classList.add('infected')
-                    } else {
-                        cellElement.classList.remove('unknown')
+                    if (cell === 'infected') cellElement.classList.add('infected')
+                    else if (cell === 'contained') cellElement.classList.add('contained')
+                    else {
                         cellElement.classList.add('analyzed')
                         if (cell > 0) {
                             cellElement.classList.add('risk')
                             cellElement.textContent = cell
                         }
-                        analyzed++;
                     }
-                } else cellElement.classList.add('unknown')
-                cellCount++;
+                }
             })
         });
 
-        this.ui.contained.textContent = `${contained} (${Math.floor(100* contained / infected)}%)`;
-        this.ui.analyzed.textContent = `${analyzed} (${Math.floor(100 * analyzed / cellCount)}%)`;
+        this.ui.contained.textContent =
+            `${state.containedCells} (${Math.floor(100* state.containedCells / state.virusCount)}%)`;
+        this.ui.analyzed.textContent =
+            `${state.analyzedCells} (${Math.floor(100 * state.analyzedCells / (state.columns * state.rows))}%)`;
     }
 };

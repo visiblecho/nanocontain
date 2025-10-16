@@ -49,6 +49,9 @@ export class OrthoBoard extends Board {
                 this.cells[col][row].riskLevel = risk; 
             }
         }
+
+        // Start the board
+        this.isActive = true;
     }
 
     // Access cells by their position on the board.
@@ -61,12 +64,11 @@ export class OrthoBoard extends Board {
         // The board is complete if each cell is either analyzed or contained
         // The board is won if all infected cells are contained. A board can be won without being complete.
         return {
-            isComplete: this.cells.every(row =>
-                row.every(cell => cell.isAnalyzed || cell.isContained)
-            ),
-            isWon: this.cells.every(row =>
-                row.every(cell => cell.isInfected ? cell.isContained : true)
-            ),
+            analyzedCells: this.cells.flat().filter(cell => cell.isAnalyzed).length,
+            containedCells: this.cells.flat().filter(cell => cell.isContained).length,
+            isComplete: this.cells.flat().every(cell => cell.isAnalyzed || cell.isContained),
+            isWon: this.cells.flat().every(cell => cell.isInfected ? cell.isContained : true),
+            isActive: this.isActive,
         };
     }
 
@@ -102,17 +104,21 @@ export class OrthoBoard extends Board {
         const status = this.getStatus();
         const cells = this.cells.map((col, colIdx) => {
             return col.map((cell, rowIdx) => {
-                if (cell.isAnalyzed) return cell.riskLevel;
+                if (cell.isInfected && !this.isActive) return 'infected';
                 if (cell.isContained) return 'contained';
-                if (cell.isInfected) return 'infected';
+                if (cell.isAnalyzed) return cell.riskLevel;    
                 return 'unknown';
             });
         })
         const view = {
+            virusCount: this.configuration.virusCount,
             columns: this.configuration.columns,
             rows: this.configuration.rows,
+            analyzedCells: status.analyzedCells,
+            containedCells: status.containedCells,
             isComplete: status.isComplete,
             isWon: status.isWon,
+            isActive: this.isActive,
             cells: cells,
         };
         return view;

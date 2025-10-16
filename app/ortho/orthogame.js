@@ -48,6 +48,10 @@ export class OrthoGame extends Model {
                     this.analyze({column: cell.col, row: cell.row})
                 })
             }
+
+            // Gome over?
+            // TODO: Encapsulate private attribute isActive with get()
+            if (cell.isInfected) this.board.isActive = false;
         }
 
         // Store the current state, and notify observers to retrieve it.
