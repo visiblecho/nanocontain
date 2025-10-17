@@ -16,8 +16,12 @@ export class Model {
         this.states = [];
     }
 
-    // Changes the game's state. Use this function to establish an undo/redo stack.
-    updateState(newState) { this.states.push(newState); }
+    // Changes the game's state. 
+    updateState(newState) {
+        // Use this approach to establish an undo/redo stack (not needed here):
+        // this.states.push(newState);
+        this.states[0] = newState;
+    }
 
     // Called when the user triggers an action
     performAction(action, data) { this.actions[action](data); }
