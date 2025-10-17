@@ -160,20 +160,25 @@ button {
   align-items: center;
   justify-content: center;
 
-  border: 1px solid var(--color-one);
-  border-radius: 3px;
   margin: 0.25em;
   padding: 0.25em;
+
+  border: 1px solid var(--color-one);
+  border-radius: 3px;
+
+  color: var(--color-four);
   background-color: var(--color-four);
+  
+  transition: border-color 1s ease, color 1s ease, background-color 1s ease;
 }
+
+/* Cell states ----------------------------------------- */
 
 @keyframes pulse-background {
   0%   { background-color: var(--color-four); }
   5%   { background-color: var(--color-two); }
   100% { background-color: var(--color-four); }
 }
-
-/* Cell states ----------------------------------------- */
 
 .unknown:hover {
   /* use a variable for animation speed to modulate it */
@@ -186,7 +191,7 @@ button {
 
 .analyzed {
   background-color: var(--color-six);
-  border: none;
+  border-color: transparent;
 }
 
 .risk-low {
