@@ -42,8 +42,8 @@ export class OrthoBoard extends Board {
         // Update each cell's risk level based on adjacent viruses.
         for (let col = 0; col < this.configuration.columns; col++) {
             for (let row = 0; row < this.configuration.rows; row++) {
-                const adjacenPositions = this.getAdjacentCellPositions({col: col, row: row});
-                const risk = adjacenPositions
+                const adjacentPositions = this.getAdjacentCellPositions({col: col, row: row});
+                const risk = adjacentPositions
                     .map(pos => { return this.cells[pos.col][pos.row].isInfected ? 1 : 0 })
                     .reduce((a, b) => { return a + b }, 0);
                 this.cells[col][row].riskLevel = risk; 
@@ -57,19 +57,21 @@ export class OrthoBoard extends Board {
     // Access cells by their position on the board.
     // The methods are meant for use by other classes.
     // Methods of OrthoBoard directly access the array for simplicity. 
-    getCell(pos) {return this.cells[pos.col][pos.row]};
-    setCell(pos, cell) {this.cells[pos.col][pos.row] = cell};
+    getCell(pos) { return this.cells[pos.col][pos.row]}
+    setCell(pos, cell) { this.cells[pos.col][pos.row] = cell }
 
     getStatus() {
         // The board is complete if each cell is either analyzed or contained
         // The board is won if all infected cells are contained. A board can be won without being complete.
         // The board is switched inactive if it is won and active.
         const isWon = this.cells.flat().every(cell => cell.isInfected ? cell.isContained : true);
-        this.isActive = !(isWon && this.isActive);
+        const isLost = this.cells.flat().some(cell => cell.isInfected && cell.isAnalyzed)
+        if (isWon || isLost) this.isActive = false;
         return {
             analyzedCells: this.cells.flat().filter(cell => cell.isAnalyzed).length,
             containedCells: this.cells.flat().filter(cell => cell.isContained).length,
             isComplete: this.cells.flat().every(cell => cell.isAnalyzed || cell.isContained),
+            isLost: isLost,
             isWon: isWon,
             isActive: this.isActive,
         };

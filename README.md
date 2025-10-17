@@ -28,9 +28,9 @@ Continue your analysis until you have contained all infected cells without analy
 - ~~Implement the Orthogame.contain() method (.5h)~~
 - ~~Implement the remaining notify() pieces (.5h)~~
 - ~~Improve: Limit the number of contained cells to the number of infected cells~~
-- Add: Visually handle the win/lose situation (1h)
+- ~~Add: Visually handle the win/lose situation (1h)~~
 - ~~Fix: Handle the render() / CSS issue that displays all infected cells after the first user interaction~~
-- Fix: The reset functionality is broken (.5h)
+- ~~Fix: The reset functionality is broken (.5h)~~
 
 ## Known Issues (Deferred beyond MVP)
 

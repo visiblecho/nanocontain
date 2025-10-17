@@ -67,9 +67,11 @@ export class OrthoView extends View {
                 
                 // Set all classes to "cell unknown" (and reset all other classes).
                 cellElement.className = 'cell unknown';
+                cellElement.textContent = ''
 
                 // Add other visual classes dependning on cell state
                 if (cell !== 'unknown') {
+                    cellElement.classList.remove('unknown');
                     if (cell === 'infected') cellElement.classList.add('infected')
                     else if (cell === 'contained') cellElement.classList.add('contained')
                     else {
@@ -88,7 +90,6 @@ export class OrthoView extends View {
         this.ui.analyzed.textContent =
             `${state.analyzedCells} (${Math.floor(100 * state.analyzedCells / (state.columns * state.rows))}%)`;
 
-        console.log(state)
         if (state.isActive === false) {
             this.showOverlay(state.isWon ? 'You win!' : 'You lose!')
         } else this.hideOverlay();

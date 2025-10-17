@@ -28,6 +28,9 @@ export class OrthoGame extends Model {
             analyze: data => this.analyze(data),
             contain: data => this.contain(data),
         }
+
+        // Store the initial state.
+        this.updateState(this.board.getUserView())
     }
 
     analyze(data) {
@@ -48,10 +51,6 @@ export class OrthoGame extends Model {
                     this.analyze({column: cell.col, row: cell.row})
                 })
             }
-
-            // Gome over?
-            // TODO: Encapsulate private attribute isActive with get()
-            if (cell.isInfected) this.board.isActive = false;
         }
 
         // Store the current state, and notify observers to retrieve it.
@@ -73,7 +72,6 @@ export class OrthoGame extends Model {
         }
         this.board.setCell(pos, cell);
         
-
         // Store the current state, and notify observers to retrieve it.
         this.updateState(this.board.getUserView())
         this.notifyObservers();
