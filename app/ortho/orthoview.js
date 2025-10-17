@@ -16,6 +16,7 @@ export class OrthoView extends View {
         };
 
         this.ui = {
+            header: document.querySelector('header'),
             infected: document.getElementById('infected'),
             contained: document.getElementById('contained'),
             analyzed: document.getElementById('analyzed'),
@@ -47,6 +48,22 @@ export class OrthoView extends View {
                 column.appendChild(cell);
             }
         }
+
+        // enable color theme switching by clicking the header
+        this.colors = {
+            currentIdx: 0,
+            themes: [
+                'dark-colors',
+                'light-colors',
+                'rotate120-colors',
+            ]
+        }
+
+        this.ui.header.addEventListener('click', _ => {
+            this.colors.currentIdx++;
+            if (this.colors.currentIdx >= this.colors.themes.length) this.colors.currentIdx = 0;
+            this.root.classList = this.colors.themes[this.colors.currentIdx]
+        })
     }
 
     // Utility functions to show and hide the overlay.

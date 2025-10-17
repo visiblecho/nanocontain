@@ -10,15 +10,33 @@
     --color-six: #0E3D3F;
 }
 
-.soft-colors {
+.dark-colors {
     /* Theme override. Add this class to <body> */
-    /* TODO: Consider adding more themes */
-    --color-one: #00E0E0;
-    --color-two: #C3FF00;
-    --color-three: #FF2F5A;
-    --color-four: #121417;
-    --color-five: #E8E8E8;
-    --color-six: #111E21;
+    --color-one:   #00E0E0; /* secondary (main UI color) */
+    --color-two:   #C3FF00; /* primary (logo) */
+    --color-three: #FF2F5A; /* alerts/warnings */
+    --color-four:  #121417; /* background */
+    --color-five:  #E8E8E8; /* tertiary text */
+    --color-six:   #111E21; /* dark version of color-one */
+}
+
+.light-colors {
+    --color-one:   #008C8C; /* teal-toned secondary */
+    --color-two:   #9AD700; /* lime-green logo */
+    --color-three: #CC0033; /* softer red alert */
+    --color-four:  #FAFAFA; /* light background */
+    --color-five:  #222222; /* dark text */
+    --color-six:   #CCEAEA; /* pale teal shadow tone */
+}
+
+
+.rotate120-colors {
+    --color-one:   #0055E0; /* blue secondary */
+    --color-two:   #FF00C3; /* magenta primary */
+    --color-three: #FFA22F; /* amber alerts */
+    --color-four:  #141212; /* deep charcoal background */
+    --color-five:  #E8E8E8; /* light text */
+    --color-six:   #111121; /* blue-toned dark */
 }
 
 /* Static HTML tags ------------------------------------ */
