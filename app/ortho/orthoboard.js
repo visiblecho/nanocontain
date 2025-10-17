@@ -18,34 +18,31 @@ export class OrthoBoard extends Board {
             rows: rows,
         };
 
-        // Main board of cells as 2d array.
-        this.cells = [];
-        for (let col = 0; col < this.configuration.columns; col++) {
-            let arr = [];
-            for (let row = 0; row < this.configuration.rows; row++) {
-                arr.push(new Cell());
-            }
-            this.cells.push(arr);
-        }
+        // Main board of cells as 2d array.       
+        this.cells = Array.from({ length: this.configuration.columns }, () =>
+            Array.from({ length: this.configuration.rows }, () => new Cell())
+        );
+
 
         // Distribute all viruses randomly.
-        let undistributedViruses = this.configuration.virusCount;
-        while (undistributedViruses > 0) {
+        let remaining = this.configuration.virusCount;
+        while (remaining > 0) {
             const col = Math.floor(Math.random() * this.configuration.columns);
             const row = Math.floor(Math.random() * this.configuration.columns);
-            if (this.cells[col][row].isInfected === false) {
-                this.cells[col][row].isInfected = true;
-                undistributedViruses--;
+            const cell = this.cells[col][row];
+            if (!cell.isInfected) {
+                cell.isInfected = true;
+                remaining--;
             }
         }
 
         // Update each cell's risk level based on adjacent viruses.
         for (let col = 0; col < this.configuration.columns; col++) {
             for (let row = 0; row < this.configuration.rows; row++) {
-                const adjacentPositions = this.getAdjacentCellPositions({col: col, row: row});
+                const adjacentPositions = this.getAdjacentCellPositions({col, row});
                 const risk = adjacentPositions
-                    .map(pos => { return this.cells[pos.col][pos.row].isInfected ? 1 : 0 })
-                    .reduce((a, b) => { return a + b }, 0);
+                    .filter(({ col, row }) => this.cells[col][row].isInfected)
+                    .length;
                 this.cells[col][row].riskLevel = risk; 
             }
         }
@@ -56,14 +53,14 @@ export class OrthoBoard extends Board {
 
     // Access cells by their position on the board.
     // The methods are meant for use by other classes.
-    // Methods of OrthoBoard directly access the array for simplicity. 
+    // OrthoBoard directly access the array for simplicity. 
     getCell(pos) { return this.cells[pos.col][pos.row]}
     setCell(pos, cell) { this.cells[pos.col][pos.row] = cell }
 
     getStatus() {
         // The board is complete if each cell is either analyzed or contained
         // The board is won if all infected cells are contained. A board can be won without being complete.
-        // The board is switched inactive if it is won and active.
+        // The board is switched inactive if it is won or lost.
         const isWon = this.cells.flat().every(cell => cell.isInfected ? cell.isContained : true);
         const isLost = this.cells.flat().some(cell => cell.isInfected && cell.isAnalyzed)
         if (isWon || isLost) this.isActive = false;
@@ -94,17 +91,20 @@ export class OrthoBoard extends Board {
         const left  = col <= minCol ? undefined : col-1;
 
         return [
-            {col: col, row: up},
+            {col: col,   row: up},
             {col: right, row: up},
             {col: right, row: row},
             {col: right, row: down},
-            {col: col, row: down},
-            {col: left, row: down},
-            {col: left, row: row},
-            {col: left, row: up},
-        ].filter(pos => {return pos.col !== undefined && pos.row !== undefined}) // remove all undefined positions
+            {col: col,   row: down},
+            {col: left,  row: down},
+            {col: left,  row: row},
+            {col: left,  row: up},
+        ].filter(pos => {return pos.col !== undefined && pos.row !== undefined})
     }
 
+    // Returns a simplified representation of the board for the UI layer.
+    // This is the main contract between model and view.
+    // Any chance to this format MUST be mirrored in View.render()
     getUserView() {
         const status = this.getStatus();
         const cells = this.cells.map((col, colIdx) => {
@@ -115,7 +115,7 @@ export class OrthoBoard extends Board {
                 return 'unknown';
             });
         })
-        const view = {
+        return {
             virusCount: this.configuration.virusCount,
             columns: this.configuration.columns,
             rows: this.configuration.rows,
@@ -126,6 +126,5 @@ export class OrthoBoard extends Board {
             isActive: status.isActive,
             cells: cells,
         };
-        return view;
     }
 }

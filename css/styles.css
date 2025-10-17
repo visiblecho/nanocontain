@@ -30,13 +30,13 @@
 }
 
 
-.rotate120-colors {
-    --color-one:   #0055E0; /* blue secondary */
-    --color-two:   #FF00C3; /* magenta primary */
-    --color-three: #FFA22F; /* amber alerts */
-    --color-four:  #141212; /* deep charcoal background */
-    --color-five:  #E8E8E8; /* light text */
-    --color-six:   #111121; /* blue-toned dark */
+.rotate-colors {
+    --color-one:   #2F5AFF; /* soft indigo-blue secondary */
+    --color-two:   #FF00AA; /* vivid fuchsia primary */
+    --color-three: #FFB02F; /* golden amber alert */
+    --color-four:  #12131A; /* deep neutral background */
+    --color-five:  #E8E8E8; /* tertiary light text */
+    --color-six:   #0E1A22; /* blue-gray dark accent */
 }
 
 /* Static HTML tags ------------------------------------ */
@@ -113,6 +113,7 @@ output {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 80%;
 }
 
 #how-to-play {
@@ -129,9 +130,8 @@ output {
 button {
   background-color: var(--color-four);
   color: var(--color-two);
-  margin: 1em 1em 0 0; /* improve layout later with flex */
+  margin: .5em; /* improve layout later with flex */
   padding: 0.25em;
-  /* Understand why <button> does not get font from <body> */
   font-family: "Exo 2", sans-serif;
   font-weight: 300;
   font-size: 1rem;
