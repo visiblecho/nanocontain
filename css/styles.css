@@ -175,6 +175,11 @@ button {
   color: var(--color-one);
 }
 
+.risk-medium {
+  color: var(--color-two);
+}
+
+
 .risk-high {
   color: var(--color-three);
 }

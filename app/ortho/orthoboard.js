@@ -109,8 +109,8 @@ export class OrthoBoard extends Board {
         const status = this.getStatus();
         const cells = this.cells.map((col, colIdx) => {
             return col.map((cell, rowIdx) => {
-                if (cell.isInfected && !this.isActive) return 'infected';
                 if (cell.isContained) return 'contained';
+                if (cell.isInfected && !this.isActive) return 'infected';
                 if (cell.isAnalyzed) return cell.riskLevel;    
                 return 'unknown';
             });

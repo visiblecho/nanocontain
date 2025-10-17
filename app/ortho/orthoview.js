@@ -72,12 +72,14 @@ export class OrthoView extends View {
                 // Add other visual classes dependning on cell state
                 if (cell !== 'unknown') {
                     cellElement.classList.remove('unknown');
-                    if (cell === 'infected') cellElement.classList.add('infected')
+                    if ((cell === 'infected') && (state.isWon === false)) cellElement.classList.add('infected')
                     else if (cell === 'contained') cellElement.classList.add('contained')
                     else {
                         cellElement.classList.add('analyzed')
                         if (cell > 0) {
-                            cellElement.classList.add('risk')
+                            cellElement.classList.add(
+                                cell < 2 ? 'risk-low' : cell < 3 ? 'risk-medium' : 'risk-high'
+                            )
                             cellElement.textContent = cell
                         }
                     }
@@ -85,6 +87,8 @@ export class OrthoView extends View {
             })
         });
 
+        this.ui.infected.textContent =
+            `${state.virusCount} (${Math.floor(100* state.virusCount / (state.columns * state.rows))}%)`;;
         this.ui.contained.textContent =
             `${state.containedCells} (${Math.floor(100* state.containedCells / state.virusCount)}%)`;
         this.ui.analyzed.textContent =
