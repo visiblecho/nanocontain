@@ -33,6 +33,26 @@ export class Model {
     notifyObservers() { this.observers.forEach(observer => observer(this.states.at(-1))); }
 };
 
+/* Reference implementation to properly handle right-click across devices.
+
+function addUnifiedContextHandler(element, callback, holdDelay = 500) {
+  let timer;
+
+  element.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse' && e.button === 2) {
+      e.preventDefault();
+      callback(e);
+    } else if (e.pointerType !== 'mouse') {
+      timer = setTimeout(() => callback(e), holdDelay);
+    }
+  });
+
+  element.addEventListener('pointerup', () => clearTimeout(timer));
+  element.addEventListener('pointercancel', () => clearTimeout(timer));
+  element.addEventListener('pointermove', () => clearTimeout(timer));
+}
+*/
+
 export class View {
     constructor(root) {
         this.root = root;
