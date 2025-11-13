@@ -1,6 +1,4 @@
-// import './Header.css'
-
-const Statistics = (props) => {
+const Statistics = () => {
   return <h2>Stats</h2>
 }
 
