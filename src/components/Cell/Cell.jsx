@@ -9,7 +9,7 @@ const Cell = (props) => {
     <div
       style={cellStyle}
       onClick={props.onClick}
-      omContextMenu={props.onContextMenu}
+      onContextMenu={props.onContextMenu}
     />
   )
 }

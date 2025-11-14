@@ -67,17 +67,31 @@ const Board = () => {
     return board
   }
 
+  const updateBoard = (key, value, y, x) => {
+    const newBoard = cells.map((row, rowIndex) =>
+      rowIndex === y
+        ? row.map((cell, colIndex) =>
+            colIndex === x ? { ...cell, [key]: value } : cell,
+          )
+        : row,
+    )
+    return newBoard
+  }
+
   const [cells, setCells] = useState(generateBoard())
 
   /* User interactions (controller) */
 
-  const handleCellAnalysis = (event, y, x) => {
-    console.log(`Left click -- Row: ${y} Col: ${x}`)
+  const handleCellAnalysis = (y, x) => {
+    if (!cells[y][x].isAnalyzed && !cells[y][x].isContained) {
+      setCells(updateBoard('isAnalyzed', true, y, x))
+    }
   }
 
-  const handleCellContainment = (event, y, x) => {
-    event.preventDefault() // TODO: This does not block the context menu
-    console.log(`Right click -- Row: ${y} Col: ${x}`)
+  const handleCellContainment = (e, y, x) => {
+    e.preventDefault()
+    const newValue = !cells[y][x].isContained
+    setCells(updateBoard('isContained', newValue, y, x))
   }
 
   /* Component view */
@@ -97,8 +111,8 @@ const Board = () => {
             <Cell
               key={`${x}-${y}`}
               {...cell}
-              onClick={(event) => handleCellAnalysis(event, y, x)}
-              onContextMenu={(event) => handleCellContainment(event, y, x)}
+              onClick={() => handleCellAnalysis(y, x)}
+              onContextMenu={(e) => handleCellContainment(e, y, x)}
             />
           )),
         )}
