@@ -1,12 +1,13 @@
 const themes = {
   light: {
     colors: {
-      font: '#bcdfe9ff',
-      background: '#333333',
-      cellUnknown: 'darkcyan',
-      cellAnalyzed: '#444444',
-      cellContained: 'cyan',
-      cellInfected: 'red',
+      font: '#E8E8E8',
+      headerFont: '#C3FF00',
+      background: '#121417',
+      cellUnknownBorder: '#00E0E0',
+      cellAnalyzed: '#111E21',
+      cellContained: '#00E0E0',
+      cellInfected: '#FF2F5A',
       cellBorderShade: 'rgba(255, 255, 255, .5)',
     },
   },

@@ -4,7 +4,7 @@ import Board from './components/Board/Board.jsx'
 const App = () => {
   return (
     // TODO: Fix the layout on the page
-    <div style={{ width: '500px', margin: '50px' }}>
+    <div style={{ minWidth: '450px', maxWidth: '500px', margin: '10px' }}>
       <Header />
       <Board />
     </div>
