@@ -86,6 +86,8 @@ const Board = () => {
     if (!cells[y][x].isAnalyzed && !cells[y][x].isContained) {
       setCells(updateBoard('isAnalyzed', true, y, x))
     }
+    // game over
+    // flood fill
   }
 
   const handleCellContainment = (e, y, x) => {
@@ -104,7 +106,6 @@ const Board = () => {
 
   return (
     <>
-      <Statistics />
       <div className="board" style={boardStyle}>
         {cells.map((row, y) =>
           row.map((cell, x) => (
@@ -118,6 +119,7 @@ const Board = () => {
           )),
         )}
       </div>
+      <Statistics cells={cells} />
     </>
   )
 }
