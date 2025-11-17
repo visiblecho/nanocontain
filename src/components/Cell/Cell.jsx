@@ -1,43 +1,27 @@
-import theme from '../themes.js'
+import './Cell.css'
 
 const Cell = (props) => {
-  const baseStyle = {
-    aspectRatio: '1',
-    border: `2px solid`,
-    borderColor: 'transparent',
-    borderRadius: '20%',
-    transition: 'border-color 1s ease, color 1s ease, background-color 1s ease',
-  }
-
   const getCellStyle = () => {
-    if (props.isInfected && props.revealInfected)
-      return {
-        ...baseStyle,
-        background: theme.colors.cellInfected,
-      }
-    if (props.isContained)
-      return {
-        ...baseStyle,
-        background: theme.colors.cellContained,
-      }
-    if (props.isAnalyzed)
-      return {
-        ...baseStyle,
-        background: theme.colors.cellAnalyzed,
-      }
-    return {
-      ...baseStyle,
-      background: theme.colors.background,
-      borderColor: theme.colors.cellUnknownBorder,
+    let classes = ''
+
+    if (props.isInfected && props.revealInfected) return 'infected'
+    if (props.isContained) return 'contained'
+    if (props.isAnalyzed) {
+      if (props.risk === 2) return 'analyzed med-risk'
+      if (props.risk > 2) return 'analyzed high-risk'
+      return 'analyzed'
     }
+    return 'unknown'
   }
 
   return (
     <div
-      style={getCellStyle()}
+      className={`cell ${getCellStyle()}`}
       onClick={props.onClick}
       onContextMenu={props.onContextMenu}
-    />
+    >
+      {props.isAnalyzed ? (props.risk > 0 ? props.risk : '') : ''}
+    </div>
   )
 }
 

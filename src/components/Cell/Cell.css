@@ -1,0 +1,34 @@
+.cell {
+    aspect-ratio: 1;
+    border: 2px solid;
+    border-color: transparent;
+    border-radius: 20%;
+    transition: border-color .5s ease, color .5s ease, background-color .5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.unknown {
+    border-color: var(--col-unknown-border);
+}
+
+.analyzed {
+    color: var(--col-font)
+}
+
+.med-risk {
+    color: var(--col-font-header)
+}
+
+.high-risk {
+    color: var(--col-infected)
+}
+
+.contained {
+    background-color: var(--col-contained);
+}
+
+.infected {
+    background-color: var(--col-infected)
+}

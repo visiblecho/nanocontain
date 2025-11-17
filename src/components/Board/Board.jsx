@@ -79,19 +79,24 @@ const Board = () => {
   }
 
   const [cells, setCells] = useState(generateBoard())
+  const [isGameOver, setIsGameOver] = useState(false)
 
   /* User interactions (controller) */
 
   const handleCellAnalysis = (y, x) => {
-    if (!cells[y][x].isAnalyzed && !cells[y][x].isContained) {
-      setCells(updateBoard('isAnalyzed', true, y, x))
+    if (isGameOver) return
+    if (cells[y][x].isInfected) setIsGameOver(true)
+    else {
+      if (!cells[y][x].isAnalyzed && !cells[y][x].isContained)
+        setCells(updateBoard('isAnalyzed', true, y, x))
+
+      // flood fill
     }
-    // game over
-    // flood fill
   }
 
   const handleCellContainment = (e, y, x) => {
     e.preventDefault()
+    if (isGameOver) return
     const newValue = !cells[y][x].isContained
     setCells(updateBoard('isContained', newValue, y, x))
   }
@@ -101,7 +106,7 @@ const Board = () => {
   const boardStyle = {
     display: 'grid',
     gridTemplateColumns: 'repeat(9, 1fr)',
-    gap: '10px',
+    gap: '.5vh',
   }
 
   return (
@@ -112,7 +117,7 @@ const Board = () => {
             <Cell
               key={`${x}-${y}`}
               {...cell}
-              revealInfected={false}
+              revealInfected={isGameOver}
               onClick={() => handleCellAnalysis(y, x)}
               onContextMenu={(e) => handleCellContainment(e, y, x)}
             />
