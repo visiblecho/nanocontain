@@ -111,6 +111,7 @@ const Board = () => {
             <Cell
               key={`${x}-${y}`}
               {...cell}
+              revealInfected={false}
               onClick={() => handleCellAnalysis(y, x)}
               onContextMenu={(e) => handleCellContainment(e, y, x)}
             />

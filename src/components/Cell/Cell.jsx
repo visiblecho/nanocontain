@@ -1,15 +1,20 @@
+import theme from '../themes.js'
+
 const Cell = (props) => {
   const baseStyle = {
     aspectRatio: '1',
-    border: '1px solid cyan',
-    background: 'darkcyan',
+    border: `2px solid ${theme.colors.cellBorderShade}`,
+    // background: theme.colors.cellUnknown,
   }
 
   const getCellStyle = () => {
-    if (props.isInfected) return { ...baseStyle, background: 'red', borderColor: 'red' }
-    if (props.isContained) return { ...baseStyle, background: 'cyan' }
-    if (props.isAnalyzed) return { ...baseStyle, background: 'black', borderColor: 'black' }
-    return { ...baseStyle, background: 'darkcyan' } 
+    if (props.isInfected && props.revealInfected)
+      return { ...baseStyle, background: theme.colors.cellInfected }
+    if (props.isContained)
+      return { ...baseStyle, background: theme.colors.cellContained }
+    if (props.isAnalyzed)
+      return { ...baseStyle, background: theme.colors.cellAnalyzed }
+    return { ...baseStyle, background: theme.colors.cellUnknown }
   }
 
   return (
