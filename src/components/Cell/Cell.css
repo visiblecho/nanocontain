@@ -2,8 +2,8 @@
     aspect-ratio: 1;
     border: 2px solid;
     border-color: transparent;
-    border-radius: 20%;
-    transition: border-color .5s ease, color .5s ease, background-color .5s ease;
+    border-radius: 15%;
+    transition: border-color 1s ease, color 1s ease, background-color 1s ease;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +14,8 @@
 }
 
 .analyzed {
-    color: var(--col-font)
+    color: var(--col-font);
+    background-color: var(--col-analyzed)
 }
 
 .med-risk {

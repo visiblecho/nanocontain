@@ -2,7 +2,6 @@ import './Cell.css'
 
 const Cell = (props) => {
   const getCellStyle = () => {
-    let classes = ''
 
     if (props.isInfected && props.revealInfected) return 'infected'
     if (props.isContained) return 'contained'

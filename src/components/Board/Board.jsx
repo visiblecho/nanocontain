@@ -5,6 +5,18 @@ import Cell from '../Cell/Cell.jsx'
 const Board = () => {
   /* Cofiguration and setup (model) */
 
+  const neighbours = [
+    // movement as [row, col]
+    [-1, -1], // up left
+    [-1, 0], // up
+    [-1, 1], // up right
+    [0, -1], // left
+    [0, 1], // right
+    [1, -1], // down left
+    [1, 0], // down
+    [1, 1], // down right
+  ]
+
   const generateBoard = (rows = 9, cols = 9, infections = 9) => {
     // Create a 2D array of cells with default values (no cell infected)
     const board = Array.from({ length: rows }, () =>
@@ -28,18 +40,6 @@ const Board = () => {
     }
 
     // Compute the cells' risk level (number of infected neighbours)
-    const neighbours = [
-      // movement as [row, col]
-      [-1, -1], // up left
-      [-1, 0], // up
-      [-1, 1], // up right
-      [0, -1], // left
-      [0, 1], // right
-      [1, -1], // down left
-      [1, 0], // down
-      [1, 1], // down right
-    ]
-
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         if (board[r][c].isMine) continue
@@ -84,14 +84,41 @@ const Board = () => {
   /* User interactions (controller) */
 
   const handleCellAnalysis = (y, x) => {
-    if (isGameOver) return
-    if (cells[y][x].isInfected) setIsGameOver(true)
-    else {
-      if (!cells[y][x].isAnalyzed && !cells[y][x].isContained)
-        setCells(updateBoard('isAnalyzed', true, y, x))
+    // Copy the board so you can mutate it locally
+    const newCells = cells.map((row) => row.map((cell) => ({ ...cell })))
 
-      // flood fill
+    const floodFill = (r, c) => {
+      const cell = newCells[r][c]
+
+      if (cell.isContained || cell.isAnalyzed || isGameOver) return
+      if (cell.isInfected) {
+        setIsGameOver(true)
+        return
+      }
+
+      cell.isAnalyzed = true
+
+      if (cell.risk === 0) {
+        for (const [dr, dc] of neighbours) {
+          const nr = r + dr
+          const nc = c + dc
+
+          if (
+            nr >= 0 &&
+            nr < newCells.length &&
+            nc >= 0 &&
+            nc < newCells[0].length
+          ) {
+            floodFill(nr, nc)
+          }
+        }
+      }
     }
+
+    floodFill(y, x)
+
+    // Finally update React state once
+    setCells(newCells)
   }
 
   const handleCellContainment = (e, y, x) => {
