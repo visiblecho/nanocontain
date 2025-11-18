@@ -18,11 +18,11 @@
     background-color: var(--col-analyzed)
 }
 
-.med-risk {
+.medRisk {
     color: var(--col-font-header)
 }
 
-.high-risk {
+.highRisk {
     color: var(--col-infected)
 }
 

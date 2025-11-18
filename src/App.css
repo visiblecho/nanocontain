@@ -1,0 +1,26 @@
+.container {
+  position: relative;
+}
+
+.base {
+  width: 300px;
+  height: 200px;
+  background: lightblue;
+}
+
+.overlay {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  top: 0;
+  left: 0;
+  
+  background: rgba(18, 20, 23, 0.8);
+  color: var(--col-font)
+  
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

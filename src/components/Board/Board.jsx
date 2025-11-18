@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Statistics from '../Statistics/Statistics.jsx'
 import Cell from '../Cell/Cell.jsx'
 
-const Board = () => {
+const Board = (props) => {
   /* Cofiguration and setup (model) */
 
   const neighbours = [
@@ -78,28 +78,26 @@ const Board = () => {
     return newBoard
   }
 
-  const [cells, setCells] = useState(generateBoard())
-  const [isGameOver, setIsGameOver] = useState(false)
+  const [cells, setCells] = useState(generateBoard(4, 4, 3))
 
   /* User interactions (controller) */
 
   const handleCellAnalysis = (y, x) => {
-    // Copy the board so you can mutate it locally
     const newCells = cells.map((row) => row.map((cell) => ({ ...cell })))
 
     const floodFill = (r, c) => {
       const cell = newCells[r][c]
 
-      if (cell.isContained || cell.isAnalyzed || isGameOver) return
+      if (cell.isContained || cell.isAnalyzed || props.isGameOver) return
       if (cell.isInfected) {
-        setIsGameOver(true)
+        props.setIsGameOver(true)
         return
       }
 
       cell.isAnalyzed = true
 
       if (cell.risk === 0) {
-        for (const [dr, dc] of neighbours) {
+        neighbours.forEach(([dr, dc]) => {
           const nr = r + dr
           const nc = c + dc
 
@@ -111,28 +109,36 @@ const Board = () => {
           ) {
             floodFill(nr, nc)
           }
-        }
+        })
       }
     }
 
     floodFill(y, x)
-
-    // Finally update React state once
     setCells(newCells)
   }
 
   const handleCellContainment = (e, y, x) => {
     e.preventDefault()
-    if (isGameOver) return
-    const newValue = !cells[y][x].isContained
-    setCells(updateBoard('isContained', newValue, y, x))
+
+    const newBoard = updateBoard('isContained', !cells[y][x].isContained, y, x)
+    const isWon = newBoard
+      .flat()
+      .filter((c) => c.isInfected)
+      .every((c) => c.isContained)
+
+    setCells(newBoard)
+    if (isWon) {
+      console.log('won!')
+      props.setIsWon(true)
+      props.setIsGameOver(true)
+    }
   }
 
   /* Component view */
 
   const boardStyle = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(9, 1fr)',
+    gridTemplateColumns: `repeat(${cells[0].length}, 1fr)`,
     gap: '.5vh',
   }
 
@@ -144,7 +150,7 @@ const Board = () => {
             <Cell
               key={`${x}-${y}`}
               {...cell}
-              revealInfected={isGameOver}
+              revealInfected={props.isGameOver}
               onClick={() => handleCellAnalysis(y, x)}
               onContextMenu={(e) => handleCellContainment(e, y, x)}
             />

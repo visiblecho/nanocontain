@@ -1,0 +1,23 @@
+.statistics {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    margin: 1.5rem 0;
+}
+
+.infected {
+    color: var(--col-infected);
+    justify-self: start;
+    margin: 0;
+}
+
+.contained {
+    color: var(--col-contained);
+    justify-self: center;
+    margin: 0;
+}
+
+.analyzed {
+    color: var(--col-font);
+    justify-self: right;
+    margin: 0; 
+}

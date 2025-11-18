@@ -1,21 +1,20 @@
-import './Cell.css'
+import styles from './Cell.module.css'
 
 const Cell = (props) => {
   const getCellStyle = () => {
-
-    if (props.isInfected && props.revealInfected) return 'infected'
-    if (props.isContained) return 'contained'
+    if (props.isInfected && props.revealInfected) return [styles.infected]
+    if (props.isContained) return [styles.contained]
     if (props.isAnalyzed) {
-      if (props.risk === 2) return 'analyzed med-risk'
-      if (props.risk > 2) return 'analyzed high-risk'
-      return 'analyzed'
+      if (props.risk === 2) return [styles.analyzed, styles.medRisk]
+      if (props.risk > 2) return [styles.analyzed, styles.highRisk]
+      return [styles.analyzed]
     }
-    return 'unknown'
+    return [styles.unknown]
   }
 
   return (
     <div
-      className={`cell ${getCellStyle()}`}
+      className={`${styles.cell} ${getCellStyle().join(' ')}`}
       onClick={props.onClick}
       onContextMenu={props.onContextMenu}
     >
