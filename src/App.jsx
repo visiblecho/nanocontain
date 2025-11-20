@@ -6,12 +6,16 @@ import Restart from './components/Restart/Restart.jsx'
 import './App.css'
 
 const App = () => {
-  const Container = ({ showOverlay }) => {
+  const Container = () => {
     const [resetKey, setResetKey] = useState(0)
     const [isGameOver, setIsGameOver] = useState(false)
     const [isWon, setIsWon] = useState(false)
 
-    const triggerReset = () => setResetKey((k) => k++)
+    const triggerReset = () => {
+      setIsGameOver(false)
+      setIsWon(false)
+      setResetKey((k) => k + 1)
+    }
 
     return (
       <div className="container">

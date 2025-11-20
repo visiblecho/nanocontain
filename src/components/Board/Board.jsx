@@ -128,7 +128,6 @@ const Board = (props) => {
 
     setCells(newBoard)
     if (isWon) {
-      console.log('won!')
       props.setIsWon(true)
       props.setIsGameOver(true)
     }
