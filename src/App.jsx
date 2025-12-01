@@ -10,8 +10,14 @@ const App = () => {
     const [resetKey, setResetKey] = useState(0)
     const [isGameOver, setIsGameOver] = useState(false)
     const [isWon, setIsWon] = useState(false)
+    const [boardConfig, setBoardConfig] = useState({
+      rows: 9,
+      cols: 9,
+      infected: 9,
+    })
 
-    const triggerReset = () => {
+    const triggerReset = (rows, cols, infected) => {
+      setBoardConfig({ rows, cols, infected })
       setIsGameOver(false)
       setIsWon(false)
       setResetKey((k) => k + 1)
@@ -21,12 +27,17 @@ const App = () => {
       <div className="container">
         <Board
           key={resetKey}
+          boardConfig={boardConfig}
           isGameOver={isGameOver}
           setIsGameOver={setIsGameOver}
           setIsWon={setIsWon}
           className="base"
         />
-        {isGameOver && <Restart success={isWon} trigger={triggerReset} />}
+        <Restart
+          success={isWon}
+          trigger={triggerReset}
+          isVisible={isGameOver}
+        />
       </div>
     )
   }

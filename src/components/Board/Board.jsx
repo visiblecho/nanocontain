@@ -17,7 +17,7 @@ const Board = (props) => {
     [1, 1], // down right
   ]
 
-  const generateBoard = (rows = 9, cols = 9, infections = 9) => {
+  const generateBoard = (rows, cols, infections) => {
     // Create a 2D array of cells with default values (no cell infected)
     const board = Array.from({ length: rows }, () =>
       Array.from({ length: cols }, () => ({
@@ -78,7 +78,13 @@ const Board = (props) => {
     return newBoard
   }
 
-  const [cells, setCells] = useState(generateBoard(4, 4, 3))
+  const [cells, setCells] = useState(
+    generateBoard(
+      props.boardConfig.rows,
+      props.boardConfig.cols,
+      props.boardConfig.infected,
+    ),
+  )
 
   /* User interactions (controller) */
 

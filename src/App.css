@@ -3,24 +3,43 @@
 }
 
 .base {
-  width: 300px;
-  height: 200px;
   background: lightblue;
 }
 
 .overlay {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  place-items: center;
   top: 0;
   left: 0;
-  
-  background: rgba(18, 20, 23, 0.8);
-  color: var(--col-font)
-  
-  color: white;
+  right: 0;
+  bottom: 0;
+  padding: 10%;
+
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+
+  background-color: rgba(18, 20, 23, 0.9);
+  color: var(--col-font);
+
+  opacity: 0;               
+  transition: opacity 2s ease; 
+  pointer-events: none;     
+}
+
+.overlay.visible {
+  opacity: 1;               
+  pointer-events: auto;     
+}
+
+.overlay button {
+  background-color: var(--col-contained);
+  margin: 15px;  
+  padding: 15px;
+  border: transparent;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

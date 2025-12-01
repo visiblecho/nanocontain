@@ -1,8 +1,9 @@
 const Restart = (props) => {
   return (
-    <div className="overlay">
+    <div className={`overlay ${props.isVisible ? 'visible' : ''}`}>
       <h2>You {props.success ? 'win' : 'lose'}</h2>
-      <h3>How to play</h3>
+      <button onClick={() => props.trigger(9, 9, 9)}>Restart Small</button>
+      <button onClick={() => props.trigger(13, 13, 19)}>Restart Large</button>
       <p>The virus is spreading! Find and contain all infected cells.</p>
       <p>
         Left-click a cell to analyze it. The number shows how many infected
@@ -13,7 +14,6 @@ const Restart = (props) => {
         Right-click a cell to mark it as contained. Contain all infected cells
         without analyzing one to win.
       </p>
-      <button onClick={props.trigger}>Restart</button>
     </div>
   )
 }
