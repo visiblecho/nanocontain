@@ -43,7 +43,6 @@ const App = () => {
   }
 
   return (
-    // TODO: Fix the layout on the page
     <div style={{ minWidth: '450px', maxWidth: '500px', margin: '10px' }}>
       <Header />
       <Container />

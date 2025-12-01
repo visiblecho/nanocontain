@@ -1,6 +1,5 @@
 :root {
   --col-font: #E8E8E8;
-  /*--col-font: #00E0E0;*/
   --col-font-header: #C3FF00;
   --col-background: #121417;
   --col-unknown-border: #00E0E0;
@@ -20,7 +19,6 @@ body {
 
   background-color: var(--col-background);
 
-  /* TODO: Refine layout */
   display: flex;
   justify-content: center;
   align-items: center;

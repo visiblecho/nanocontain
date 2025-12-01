@@ -1,16 +1,40 @@
-# React + Vite
+# nanocontain
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Post-covid interpretation of a simple game from the 1990s.
 
-Currently, two official plugins are available:
+## How to play
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The virus is spreading! Find and contain all infected cells.
+_Left-click_ a cell to analyze it. The number shows how many infected cells are next to it. If you analyze an infected cell, the virus spreads and you _lose_!
+_Right-click_ a cell to mark it as contained. Contain all infected cells without analyzing one to _win_.
 
-## React Compiler
+## How to get started with the code
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Download with `git clone <url>`.
+1. Install all packages with `npm install`.
+1. Start the development server with `npm run dev`.
 
-## Expanding the ESLint configuration
+The project depends on React via Vite.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## How to extend
+
+The following features have not been implemented yet:
+
+### Add time pressure
+
+As a user, when I start, I can
+
+- set a timer so I can compete against my own countdown
+- set a timer so I
+- enable dynamic mode so that the virus continues to infect non-analyzed, non-contained cells in irregular intervals.
+
+### Adjust difficulty
+
+As a user, when I start, I can configure the number of columns, rows, and infected cells so I can adjust difficulty.
+
+### Change board topology
+
+As a user, when I start, I can
+
+- switch to a hexagonal grid (instead of orthogonal) so I can explore different infection patterns.
+- switch to a 3d orthogonal grid (instead of 2d) so I can explore different infection patterns.
