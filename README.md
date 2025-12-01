@@ -10,7 +10,7 @@ _Right-click_ a cell to mark it as contained. Contain all infected cells without
 
 ## How to get started with the code
 
-1. Download with `git clone <url>`.
+1. Download with `git clone https://github.com/visiblecho/nanocontain.git`.
 1. Install all packages with `npm install`.
 1. Start the development server with `npm run dev`.
 
